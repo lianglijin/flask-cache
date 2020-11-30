@@ -1,6 +1,6 @@
 import pickle
-from werkzeug.contrib.cache import (BaseCache, NullCache, SimpleCache, MemcachedCache,
-                                    GAEMemcachedCache, FileSystemCache)
+from cachelib import (BaseCache, NullCache, SimpleCache, MemcachedCache,
+                                    FileSystemCache)
 from ._compat import range_type
 
 
@@ -41,9 +41,9 @@ def saslmemcached(app, config, args, kwargs):
                        key_prefix=config['CACHE_KEY_PREFIX']))
     return SASLMemcachedCache(*args, **kwargs)
 
-def gaememcached(app, config, args, kwargs):
-    kwargs.update(dict(key_prefix=config['CACHE_KEY_PREFIX']))
-    return GAEMemcachedCache(*args, **kwargs)
+# def gaememcached(app, config, args, kwargs):
+#     kwargs.update(dict(key_prefix=config['CACHE_KEY_PREFIX']))
+#     return GAEMemcachedCache(*args, **kwargs)
 
 def filesystem(app, config, args, kwargs):
     args.insert(0, config['CACHE_DIR'])
@@ -52,7 +52,7 @@ def filesystem(app, config, args, kwargs):
 
 # RedisCache is supported since Werkzeug 0.7.
 try:
-    from werkzeug.contrib.cache import RedisCache
+    from cachelib import RedisCache
     from redis import from_url as redis_from_url
 except ImportError:
     pass

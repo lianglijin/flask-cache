@@ -158,6 +158,7 @@ class Cache(object):
             setattr(app.jinja_env, JINJA_CACHE_ATTR_NAME, self)
             app.jinja_env.add_extension(CacheExtension)
 
+        self.app = app
         self._set_cache(app, config)
 
     def _set_cache(self, app, config):
